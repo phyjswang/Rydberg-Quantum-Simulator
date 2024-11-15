@@ -7,7 +7,7 @@ using ITensorMPS
 using Statistics
 
 ITensors.Strided.disable_threads()
-BLAS.set_num_threads(2)
+BLAS.set_num_threads(1)
 ITensors.enable_threaded_blocksparse(false)
 
 @show Threads.nthreads()
@@ -83,7 +83,7 @@ end
 let
     L = parse(Int64, ARGS[3])
     # lsΩ = LinRange(.4,.8,51)
-    lsΩ = 0.45:0.008:1.5
+    lsΩ = 0.45:0.008:1.3
     nlsΩ = length(lsΩ)
     # lsΔ = LinRange(-1.09,-.95,51)
     di = parse(Float64, ARGS[1])
@@ -100,5 +100,5 @@ let
     rslt = @strdict matee matni lsΩ lsΔ
     fnstr = @strdict di df L
     fn = savename(fnstr,"jld2")
-    wsave(datadir("sims","largeRegion",fn), rslt)
+    wsave(datadir("sims","largeRegion","final",fn), rslt)
 end
